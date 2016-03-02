@@ -26,6 +26,9 @@ describe('Server', () => {
       this.request.get('/', (error, response) => {
         assert.equal(response.statusCode, 200);
 
+        assert(response.body.includes("Welcome to Crowdsource!"));
+        assert(response.body.includes("To get started, create a poll below."));
+
         done();
       });
     });
