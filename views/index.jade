@@ -16,15 +16,15 @@ html(lang="en")
         .col-md-6
           .form-group
             label Poll Question:
-            input.form-control
+            input.form-control#poll-question
             br
             
             #form-responses
               label Poll Responses:
-              input.form-control
+              input.form-control.poll-response
               br
               
-              input.form-control
+              input.form-control.poll-response
               br
               
             button.btn.btn-primary#add-response Add another response
@@ -35,6 +35,5 @@ html(lang="en")
             button.btn.btn-danger#create-poll Create poll
         .col-md-3
         
-    script(src='/scripts/create-poll.js')
     script(src='/socket.io/socket.io.js')
-    script(src='/client.js')
+    script(src='/scripts/create-poll.js')
