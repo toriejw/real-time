@@ -14,8 +14,12 @@ createPollButton.addEventListener('click', function () {
   socket.send('pollCreated', poll);
 });
 
+var pollUrlsDiv = document.getElementById('poll-urls');
+
 socket.on('pollSuccessfullyCreated', function (urls) {
-  console.log(urls);
+  pollUrlsDiv.innerHTML = 'Poll URL: ' + urls.pollUrl + '<br>' +
+                          'Admin URL (to manage your poll): ' + urls.adminUrl + '<br><br>' +
+                          'If you would like to make another poll, please refresh the page.<br><br>';
 });
 
 function addAdditionalResponseOption() {
