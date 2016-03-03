@@ -10,25 +10,27 @@ for (var i = 0; i < buttons.length; i++) {
 
 var voteStatusDiv = document.getElementById('vote-status');
 
-socket.on('voteSuccessfullyRecorded', function(data) {
+socket.on('voteSuccessfullyRecorded', function(vote) {
   voteStatusDiv.className = 'alert alert-success';
-  voteStatusDiv.innerHTML = 'Your vote has been recorded. <br>You selected: ' + data.vote;
-
-  displayResults(data.poll);
+  voteStatusDiv.innerHTML = 'Your vote has been recorded. <br>You selected: ' + vote;
 });
 
-function getYValues(poll) {
-  return poll.responses.map(function(response) {
-    return poll.voteCount[response];
-  });
-}
+socket.on('updateResults', function (poll) {
+  displayResults(poll);
+});
 
 function displayResults(poll) {
   var plotData = [
     { x: poll.responses,
       y: getYValues(poll),
       type: 'bar' }
-  ];
+    ];
 
-  Plotly.newPlot('results', plotData);
+    Plotly.newPlot('results', plotData);
+  }
+
+function getYValues(poll) {
+  return poll.responses.map(function(response) {
+    return poll.voteCount[response];
+  });
 }
