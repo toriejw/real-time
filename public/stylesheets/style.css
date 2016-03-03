@@ -1,4 +1,4 @@
-h1, p {
+h1, p, .poll-response {
   text-align: center;
 }
 
@@ -6,4 +6,8 @@ p {
   font-size: 150%;
   margin-bottom: 50px;
   margin-top: 20px;
+}
+
+#poll-question {
+  font-size: 250%;
 }

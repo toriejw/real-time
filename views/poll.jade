@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  div.container
+    p#poll-question= poll.question
+    
+    p Pick an answer below:
+    
+    .row.responses
+      .col-md-3
+      .col-md-6
+        each response in poll.responses
+          button.btn.btn-primary.poll-response= response
+          br
+          
+      .col-md-3
+    

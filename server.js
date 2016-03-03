@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const generateId = require('./lib/generate-id');
 
 const app = express();
 
@@ -10,8 +11,16 @@ app.use(express.static('public'));
 
 app.locals.title = 'Crowdsource';
 
+var polls = {};
+
 app.get('/', (request, response) => {
   response.render('index');
+});
+
+app.get('/poll/:id', (request, response) => {
+  var poll = polls[request.params.id];
+
+  response.render('poll', { poll: poll });
 });
 
 var port = process.env.PORT || 3000;
@@ -21,8 +30,6 @@ server.listen(port, () => {
   console.log(`${app.locals.title} is listening on port ${app.get('port')}`);
 });
 
-var polls = {};
-
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
@@ -30,13 +37,13 @@ io.on('connection', function (socket) {
 
   socket.on('message', function (channel, poll) {
     if (channel === 'pollCreated') {
-      polls[socket.id] = poll;
+      var id = generateId();
+      polls[id] = poll;
 
       var baseUrl = socket.conn.request.headers.host;
 
-      socket.emit('pollSuccessfullyCreated', {pollUrl: baseUrl + socket.id,
-                                              adminUrl: baseUrl + '/admin' + socket.id});
-      // send back to client the url of the poll and the admin url for the poll (user must refresh page to make new poll)
+      socket.emit('pollSuccessfullyCreated', { pollUrl: baseUrl + '/poll/' + id,
+                                               adminUrl: baseUrl + '/admin/' + id} );
     }
   });
 
