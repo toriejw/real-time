@@ -1,4 +1,4 @@
-h1, p, .poll-response {
+h1, p {
   text-align: center;
 }
 
@@ -8,6 +8,10 @@ p {
   margin-top: 20px;
 }
 
-#poll-question {
+#question {
   font-size: 250%;
+}
+
+#vote-status {
+  text-align: center;
 }

@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const generateId = require('./lib/generate-id');
+const initializeVoteCount = require('./lib/initialize-vote-count.js');
 
 const app = express();
 
@@ -35,15 +36,27 @@ const io = socketIo(server);
 
 io.on('connection', function (socket) {
 
-  socket.on('message', function (channel, poll) {
+  socket.on('message', function (channel, msg) {
     if (channel === 'pollCreated') {
       var id = generateId();
+      var poll = msg;
+
+      poll.id = id;
+      poll.voteCount = initializeVoteCount(poll.responses);
+      poll.votes = {};
+
       polls[id] = poll;
 
       var baseUrl = socket.conn.request.headers.host;
 
       socket.emit('pollSuccessfullyCreated', { pollUrl: baseUrl + '/poll/' + id,
                                                adminUrl: baseUrl + '/admin/' + id} );
+    } else if (channel === 'voteCast') {
+      var poll = polls[msg.pollId];
+
+      poll.votes[socket.id] = msg.vote;
+
+      socket.emit('voteSuccessfullyRecorded', poll.votes[socket.id]);
     }
   });
 

@@ -2,16 +2,28 @@ extends layout
 
 block content
   div.container
-    p#poll-question= poll.question
+    p#question= poll.question
+    
+    .row
+      .col-md-3
+      .col-md-6
+        p#voteStatus
+      .col-md-3
     
     p Pick an answer below:
     
-    .row.responses
+    .row#responses
       .col-md-3
       .col-md-6
         each response in poll.responses
-          button.btn.btn-primary.poll-response= response
+          button.btn.btn-primary.poll-response(id=poll.id)= response
+          br
           br
           
       .col-md-3
+      
+    .row#results
     
+      
+  script(src='/socket.io/socket.io.js')
+  script(src='/scripts/record-votes.js')    
