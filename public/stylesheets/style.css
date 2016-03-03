@@ -10,8 +10,17 @@ p {
 
 #question {
   font-size: 250%;
+  margin-top: 50px;
+  margin-bottom: 0px;
 }
 
 #vote-status {
+  text-align: center;
+  font-size: 120%;
+}
+
+#results {
+  width: 500px;
+  height: 100%;
   text-align: center;
 }

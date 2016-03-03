@@ -35,7 +35,7 @@ const socketIo = require('socket.io');
 const io = socketIo(server);
 
 io.on('connection', function (socket) {
-
+  
   socket.on('message', function (channel, msg) {
     if (channel === 'pollCreated') {
       var id = generateId();
@@ -55,11 +55,21 @@ io.on('connection', function (socket) {
       var poll = polls[msg.pollId];
 
       poll.votes[socket.id] = msg.vote;
+      poll.voteCount = countVotes(poll.votes, poll.responses);
 
-      socket.emit('voteSuccessfullyRecorded', poll.votes[socket.id]);
+      socket.emit('voteSuccessfullyRecorded', { vote: poll.votes[socket.id], poll: poll });
     }
   });
 
 });
+
+function countVotes(votes, responses) {
+  var voteCount = initializeVoteCount(responses);
+
+  for (var vote in votes) {
+    voteCount[votes[vote]]++;
+  }
+  return voteCount;
+}
 
 module.exports = app;

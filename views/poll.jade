@@ -7,7 +7,7 @@ block content
     .row
       .col-md-3
       .col-md-6
-        p#voteStatus
+        p#vote-status
       .col-md-3
     
     p Pick an answer below:
@@ -21,9 +21,12 @@ block content
           br
           
       .col-md-3
-      
-    .row#results
     
+    .row
+    .col-md-2
+    .col-md-8
+      #results
+    .col-md-2
       
   script(src='/socket.io/socket.io.js')
-  script(src='/scripts/record-votes.js')    
+  script(src='/scripts/record-and-display-votes.js')    
