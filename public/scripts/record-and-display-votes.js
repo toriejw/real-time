@@ -26,7 +26,7 @@ function displayResults(poll) {
       type: 'bar' }
     ];
 
-    Plotly.newPlot('results', plotData);
+    Plotly.newPlot('results-' + poll.id, plotData);
   }
 
 function getYValues(poll) {
