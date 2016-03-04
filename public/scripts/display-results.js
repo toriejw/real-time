@@ -1,5 +1,7 @@
 var socket = io();
 
+displayResults(poll);
+
 socket.on('updateResults', function (poll) {
   if (document.getElementById('results-' + poll.id)) {
     displayResults(poll);

@@ -29,4 +29,7 @@ block content
     .col-md-2
       
   script(src='/socket.io/socket.io.js')
-  script(src='/scripts/record-and-display-votes.js')    
+  script(src='/scripts/record-votes.js')    
+  script. 
+    var poll = !{JSON.stringify(poll)};
+  script(src='/scripts/display-results.js')

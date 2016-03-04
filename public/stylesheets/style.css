@@ -8,6 +8,18 @@ p {
   margin-top: 20px;
 }
 
+h1 {
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-size: 180%;
+}
+
+h3 {
+  font-size: 120%;
+}
+
 #question {
   font-size: 250%;
   margin-top: 50px;

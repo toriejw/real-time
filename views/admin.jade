@@ -3,3 +3,18 @@ extends layout
 block content
   div.container
     h1 Welcome to your poll admin page!
+    
+    .row
+      .col-md-5.well
+        h2 Results
+        h3= 'Question: ' + poll.question
+        
+        div(id='results-' + poll.id)
+      .col-md-1
+      .col-md-5.well
+        h2 Manage your poll
+    
+  script(src='/socket.io/socket.io.js')
+  script. 
+    var poll = !{JSON.stringify(poll)};
+  script(src='/scripts/display-results.js')
