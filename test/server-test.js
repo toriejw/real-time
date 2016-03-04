@@ -22,6 +22,7 @@ describe('Server', () => {
   });
 
   describe('GET /', () => {
+
     it('serves the home page with status 200', (done) => {
       this.request.get('/', (error, response) => {
         assert.equal(response.statusCode, 200);
@@ -32,6 +33,28 @@ describe('Server', () => {
         done();
       });
     });
+
+  });
+
+  describe('GET /poll/:id', () => {
+
+    it('serves a poll page with status 200', (done) => {
+      var poll = { question: 'Q', responses: ['A1', 'A2'], id: 'some-id'};
+      app.locals.polls['some-id'] = poll;
+
+      this.request.get('/poll/some-id', (error, response) => {
+        assert.equal(response.statusCode, 200);
+
+        assert(response.body.includes(poll.question));
+
+        poll.responses.forEach(function(choice) {
+          assert(response.body.includes(choice));
+        });
+
+        done();
+      });
+    });
+
   });
 
 });

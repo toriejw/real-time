@@ -12,15 +12,14 @@ app.set('view engine', 'jade');
 app.use(express.static('public'));
 
 app.locals.title = 'Crowdsource';
-
-var polls = {};
+app.locals.polls = {};
 
 app.get('/', (request, response) => {
   response.render('index');
 });
 
 app.get('/poll/:id', (request, response) => {
-  var poll = polls[request.params.id];
+  var poll = app.locals.polls[request.params.id];
 
   response.render('poll', { poll: poll });
 });
@@ -46,14 +45,14 @@ io.on('connection', function (socket) {
       poll.voteCount = initializeVoteCount(poll.responses);
       poll.votes = {};
 
-      polls[id] = poll;
+      app.locals.polls[id] = poll;
 
       var baseUrl = socket.conn.request.headers.host;
 
       socket.emit('pollSuccessfullyCreated', { pollUrl: baseUrl + '/poll/' + id,
                                                adminUrl: baseUrl + '/admin/' + id} );
     } else if (channel === 'voteCast') {
-      var poll = polls[msg.pollId];
+      var poll = app.locals.polls[msg.pollId];
 
       poll.votes[socket.id] = msg.vote;
       poll.voteCount = countVotes(poll.votes, poll.responses);
