@@ -16,7 +16,9 @@ socket.on('voteSuccessfullyRecorded', function(vote) {
 });
 
 socket.on('updateResults', function (poll) {
-  displayResults(poll);
+  if (document.getElementById('results-' + poll.id)) {
+    displayResults(poll);
+  }
 });
 
 function displayResults(poll) {

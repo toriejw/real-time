@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const generateId = require('./lib/generate-id');
 const initializeVoteCount = require('./lib/initialize-vote-count.js');
+const countVotes = require('./lib/count-votes.js')
 
 const app = express();
 
@@ -63,14 +64,5 @@ io.on('connection', function (socket) {
   });
 
 });
-
-function countVotes(votes, responses) {
-  var voteCount = initializeVoteCount(responses);
-
-  for (var vote in votes) {
-    voteCount[votes[vote]]++;
-  }
-  return voteCount;
-}
 
 module.exports = app;
