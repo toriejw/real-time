@@ -65,6 +65,8 @@ describe('Server', () => {
 
       this.request.get('/admin/some-id', (error, response) => {
         assert.equal(response.statusCode, 200);
+
+        done();
       });
     });
 

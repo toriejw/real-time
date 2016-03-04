@@ -24,6 +24,12 @@ app.get('/poll/:id', (request, response) => {
   response.render('poll', { poll: poll });
 });
 
+app.get('/admin/:id', (request, response) => {
+  var poll = app.locals.polls[request.params.id];
+  
+  response.render('admin', { poll: poll });
+});
+
 var port = process.env.PORT || 3000;
 var server = http.createServer(app);
 
