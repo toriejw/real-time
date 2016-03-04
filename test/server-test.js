@@ -57,4 +57,17 @@ describe('Server', () => {
 
   });
 
+  describe('GET /admin/:id', () => {
+
+    it('serves an admin page with status 200', (done) => {
+      var poll = { question: 'Q', responses: ['A1', 'A2'], id: 'some-id'};
+      app.locals.polls['some-id'] = poll;
+
+      this.request.get('/admin/some-id', (error, response) => {
+        assert.equal(response.statusCode, 200);
+      });
+    });
+
+  });
+
 });
