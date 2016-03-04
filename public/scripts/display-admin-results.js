@@ -2,14 +2,6 @@ var socket = io();
 
 var resultsDiv = document.getElementById('results-' + poll.id);
 
-if (resultsDiv) {
-  if (poll.isVisible) {
-    resultsDiv.className = 'visible';
-  } else {
-    resultsDiv.className = 'hidden';
-  }
-}
-
 displayResults(poll);
 
 socket.on('updateResults', function (poll) {

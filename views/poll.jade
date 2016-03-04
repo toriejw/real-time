@@ -25,11 +25,11 @@ block content
     .row
     .col-md-2
     .col-md-8
-      div(id='results-' + poll.id)
+      div(id='results-' + poll.id).visible
     .col-md-2
       
   script(src='/socket.io/socket.io.js')
-  script(src='/scripts/record-votes.js')    
   script. 
     var poll = !{JSON.stringify(poll)};
   script(src='/scripts/display-results.js')
+  script(src='/scripts/record-votes.js')    

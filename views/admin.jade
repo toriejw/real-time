@@ -13,8 +13,16 @@ block content
       .col-md-1
       .col-md-5.well
         h2 Manage your poll
+        br
+        p.manage-options Change whether or not results are visible on your poll page:
+        br
+        if poll.isVisible
+          button#hide-show-results.btn.btn-primary Hide results
+        else
+          button#hide-show-results.btn.btn-primary Show results
     
   script(src='/socket.io/socket.io.js')
   script. 
     var poll = !{JSON.stringify(poll)};
-  script(src='/scripts/display-results.js')
+  script(src='/scripts/display-admin-results.js')
+  script(src='/scripts/show-hide-poll-results.js')

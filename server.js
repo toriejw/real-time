@@ -26,7 +26,7 @@ app.get('/poll/:id', (request, response) => {
 
 app.get('/admin/:id', (request, response) => {
   var poll = app.locals.polls[request.params.id];
-  
+
   response.render('admin', { poll: poll });
 });
 
@@ -50,6 +50,7 @@ io.on('connection', function (socket) {
       poll.id = id;
       poll.voteCount = initializeVoteCount(poll.responses);
       poll.votes = {};
+      poll.isVisible = true;
 
       app.locals.polls[id] = poll;
 
@@ -65,6 +66,12 @@ io.on('connection', function (socket) {
 
       socket.emit('voteSuccessfullyRecorded', poll.votes[socket.id]);
       io.sockets.emit('updateResults', poll);
+    } else if (channel === 'hidePoll') {
+      var poll = app.locals.polls[msg.pollId];
+      poll.isVisible = false;
+    } else if (channel === 'showPoll') {
+      var poll = app.locals.polls[msg.pollId];
+      poll.isVisible = true;
     }
   });
 

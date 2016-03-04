@@ -20,6 +20,20 @@ h3 {
   font-size: 120%;
 }
 
+.manage-options {
+  font-size: 110%;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 #question {
   font-size: 250%;
   margin-top: 50px;
