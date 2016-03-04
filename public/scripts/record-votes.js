@@ -14,25 +14,3 @@ socket.on('voteSuccessfullyRecorded', function(vote) {
   voteStatusDiv.className = 'alert alert-success';
   voteStatusDiv.innerHTML = 'Your vote has been recorded. <br>You selected: ' + vote;
 });
-
-socket.on('updateResults', function (poll) {
-  if (document.getElementById('results-' + poll.id)) {
-    displayResults(poll);
-  }
-});
-
-function displayResults(poll) {
-  var plotData = [
-    { x: poll.responses,
-      y: getYValues(poll),
-      type: 'bar' }
-    ];
-
-    Plotly.newPlot('results-' + poll.id, plotData);
-  }
-
-function getYValues(poll) {
-  return poll.responses.map(function(response) {
-    return poll.voteCount[response];
-  });
-}

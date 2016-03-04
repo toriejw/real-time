@@ -18,7 +18,7 @@ var pollUrlsDiv = document.getElementById('poll-urls');
 
 socket.on('pollSuccessfullyCreated', function (urls) {
   pollUrlsDiv.innerHTML = 'Poll URL: <a href="http://' + urls.pollUrl + '">' + urls.pollUrl + '</a><br>' +
-                          'Admin URL (to manage your poll): ' + urls.adminUrl + '<br><br>';
+                          'Admin URL: <a href="http://' + urls.adminUrl + '">' + urls.adminUrl + '</a><br><br>';
 });
 
 function addAdditionalResponseOption() {
