@@ -14,3 +14,8 @@ socket.on('voteSuccessfullyRecorded', function(vote) {
   voteStatusDiv.className = 'alert alert-success';
   voteStatusDiv.innerHTML = 'Your vote has been recorded. <br>You selected: ' + vote;
 });
+
+socket.on('voteNotRecorded', function () {
+  voteStatusDiv.className = 'alert alert-danger';
+  voteStatusDiv.innerHTML = 'Sorry, voting for this poll has ended.'
+});

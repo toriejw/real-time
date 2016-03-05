@@ -62,11 +62,16 @@ io.on('connection', function (socket) {
     } else if (channel === 'voteCast') {
       var poll = app.locals.polls[msg.pollId];
 
-      poll.votes[socket.id] = msg.vote;
-      poll.voteCount = countVotes(poll.votes, poll.responses);
+      if (poll.isOpen) {
+        poll.votes[socket.id] = msg.vote;
+        poll.voteCount = countVotes(poll.votes, poll.responses);
 
-      socket.emit('voteSuccessfullyRecorded', poll.votes[socket.id]);
-      io.sockets.emit('updateResults', poll);
+        socket.emit('voteSuccessfullyRecorded', poll.votes[socket.id]);
+        io.sockets.emit('updateResults', poll);
+      } else {
+        socket.emit('voteNotRecorded');
+      }
+
     } else if (channel === 'hidePoll') {
       var poll = app.locals.polls[msg.pollId];
       poll.isVisible = false;
