@@ -3,6 +3,7 @@ const express = require('express');
 const generateId = require('./lib/generate-id');
 const initializeVoteCount = require('./lib/initialize-vote-count.js');
 const countVotes = require('./lib/count-votes.js')
+const schedule = require('node-schedule');
 
 const app = express();
 
@@ -92,6 +93,14 @@ io.on('connection', function (socket) {
 
       poll.isOpen = true;
       socket.emit('pollSuccessfullyOpened');
+    } else if (channel === 'setPollCloseTime') {
+      var poll = app.locals.polls[msg.pollId];
+      var currentDate = new Date(Date.now());
+      var closeDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay(), msg.hour, msg.minute);
+
+      schedule.scheduleJob(closeDate, function () {
+        console.log('schedule done!');
+      });
     }
   });
 

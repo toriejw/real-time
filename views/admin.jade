@@ -33,12 +33,12 @@ block content
           button#close-poll.btn.btn-primary Close poll
           br
           
-          p.manage-options Set a time for your poll to close automatically:
+          p.manage-options Set a time (UTC) for your poll to close automatically:
           br
 
-          input.form-control.time-input(placeholder='HH')
+          input.form-control.time-input#close-poll-hour(placeholder='HH')
           =' : '
-          input.form-control.time-input(placeholder='MM')
+          input.form-control.time-input#close-poll-minute(placeholder='MM')
           
           button#set-poll-close-time.btn.btn-primary Set poll end time
           
@@ -47,11 +47,6 @@ block content
           br
           
           button#open-poll.btn.btn-primary Re-open poll
-            
-          
-            
-        
-        
     
   script(src='/socket.io/socket.io.js')
   script. 

@@ -2,8 +2,11 @@ var socket = io();
 
 var closePollButton = getClosePollButton();
 var openPollButton = getOpenPollButton();
+
 var pollClosedStatusMsg = getClosedPollStatusMsg();
 var pollOpenStatusMsg = getOpenPollStatusMsg();
+
+var setPollCloseTimeButton = document.getElementById('set-poll-close-time');
 
 if (poll.isOpen) {
   openPoll();
@@ -18,6 +21,13 @@ closePollButton.addEventListener('click', function () {
 openPollButton.addEventListener('click', function () {
   socket.send('openPoll', { pollId: poll.id });
   openPoll();
+});
+
+setPollCloseTimeButton.addEventListener('click', function () {
+  var hour = document.getElementById('close-poll-hour');
+  var minute = document.getElementById('close-poll-minute');
+
+  socket.send('setPollCloseTime', { hour: hour, minute: minute, pollId: poll.id});
 });
 
 socket.on('pollSuccessfullyClosed', function () {
