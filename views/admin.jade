@@ -21,15 +21,37 @@ block content
         else
           button#hide-show-results.btn.btn-primary Show results
           
-        br  
-          
-        p.manage-options Close your poll:
         br
+        br
+        br
+        
+        h3 Poll status:  
+          
         #poll-status-msg
+          p.manage-options Your poll is open.
+          br
           if poll.isOpen
             button#close-poll.btn.btn-primary Close poll
+            br
+            
+            p.manage-options Set a time for your poll to close automatically:
+            br
+
+            input.form-control.time-input(placeholder='HH')
+            =' : '
+            input.form-control.time-input(placeholder='MM')
+            
+            button#set-poll-close-time.btn.btn-primary Set poll end time
+            
+            br
+            
           else
             p.manage-options Poll is closed.
+            
+          
+            
+        
+        
     
   script(src='/socket.io/socket.io.js')
   script. 

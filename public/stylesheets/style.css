@@ -34,6 +34,11 @@ h3 {
   visibility: hidden;
 }
 
+.time-input {
+  width: 49px;
+  display: inline;
+}
+
 #question {
   font-size: 250%;
   margin-top: 50px;
@@ -49,4 +54,8 @@ h3 {
   width: 500px;
   height: 100%;
   text-align: center;
+}
+
+#set-poll-close-time {
+  margin-left: 15px;
 }
