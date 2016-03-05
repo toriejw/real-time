@@ -27,6 +27,8 @@ setPollCloseTimeButton.addEventListener('click', function () {
   var hour = document.getElementById('close-poll-hour');
   var minute = document.getElementById('close-poll-minute');
 
+  document.getElementById('poll-schedule-status').innerText = 'Your poll is schedule to close at ' + hour.value + ':' + minute.value + ' UTC time.';
+
   socket.send('setPollCloseTime', { hour: hour, minute: minute, pollId: poll.id});
 });
 
