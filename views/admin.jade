@@ -28,9 +28,9 @@ block content
         h3 Poll status:  
           
         #poll-status-msg
-          p.manage-options Your poll is open.
-          br
           if poll.isOpen
+            p.manage-options Your poll is open.
+            br
             button#close-poll.btn.btn-primary Close poll
             br
             
@@ -47,6 +47,9 @@ block content
             
           else
             p.manage-options Poll is closed.
+            br
+            
+            button#open-poll.btn.btn-primary Re-open poll
             
           
             
