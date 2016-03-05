@@ -99,7 +99,8 @@ io.on('connection', function (socket) {
       var closeDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay(), msg.hour, msg.minute);
 
       schedule.scheduleJob(closeDate, function () {
-        console.log('schedule done!');
+        poll.isOpen = false;
+        socket.emit('pollSuccessfullyClosed');
       });
     }
   });
