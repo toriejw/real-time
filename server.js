@@ -51,6 +51,7 @@ io.on('connection', function (socket) {
       poll.voteCount = initializeVoteCount(poll.responses);
       poll.votes = {};
       poll.isVisible = true;
+      poll.isOpen = true;
 
       app.locals.polls[id] = poll;
 
@@ -76,6 +77,10 @@ io.on('connection', function (socket) {
       poll.isVisible = true;
 
       io.sockets.emit('showPollResults', poll.id);
+    } else if (channel === 'closePoll') {
+      var poll = app.locals.polls[msg.pollId];
+      poll.isOpen = false;
+      socket.emit('pollSuccessfullyClosed');
     }
   });
 

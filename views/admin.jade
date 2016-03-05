@@ -20,9 +20,20 @@ block content
           button#hide-show-results.btn.btn-primary Hide results
         else
           button#hide-show-results.btn.btn-primary Show results
+          
+        br  
+          
+        p.manage-options Close your poll:
+        br
+        #poll-status-msg
+          if poll.isOpen
+            button#close-poll.btn.btn-primary Close poll
+          else
+            p.manage-options Poll is closed.
     
   script(src='/socket.io/socket.io.js')
   script. 
     var poll = !{JSON.stringify(poll)};
   script(src='/scripts/display-admin-results.js')
   script(src='/scripts/show-hide-poll-results.js')
+  script(src='/scripts/close-poll.js')
