@@ -84,8 +84,14 @@ io.on('connection', function (socket) {
       io.sockets.emit('showPollResults', poll.id);
     } else if (channel === 'closePoll') {
       var poll = app.locals.polls[msg.pollId];
+
       poll.isOpen = false;
       socket.emit('pollSuccessfullyClosed');
+    } else if (channel === 'openPoll') {
+      var poll = app.locals.polls[msg.pollId];
+
+      poll.isOpen = true;
+      socket.emit('pollSuccessfullyOpened');
     }
   });
 
