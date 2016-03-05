@@ -9,18 +9,21 @@ block content
       .col-md-6
         p#vote-status
       .col-md-3
+      
+    if !poll.isOpen
+      p This poll is closed.
+    else
+      p Pick an answer below:
     
-    p Pick an answer below:
-    
-    .row#responses
-      .col-md-3
-      .col-md-6
-        each response in poll.responses
-          button.btn.btn-primary.poll-response(id=poll.id)= response
-          br
-          br
-          
-      .col-md-3
+      .row#responses
+        .col-md-3
+        .col-md-6
+          each response in poll.responses
+            button.btn.btn-primary.poll-response(id=poll.id)= response
+            br
+            br
+            
+        .col-md-3
     
     .row
     .col-md-2
