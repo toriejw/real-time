@@ -4,19 +4,33 @@ var resultsDiv = document.getElementById('results-' + poll.id);
 
 if (resultsDiv) {
   if (poll.isVisible) {
-    resultsDiv.className = 'visible';
+    showPollResults();
   } else {
-    resultsDiv.className = 'hidden';
+    hidePollResults();
   }
 }
 
 displayResults(poll);
 
-socket.on('updateResults', function (poll) {
-  if (resultsDiv) {
-    displayResults(poll);
-  }
+socket.on('updateResults', function (updatedPoll) {
+  if (resultsDiv) { displayResults(updatedPoll); }
 });
+
+socket.on('hidePollResults', function (pollId) {
+  if (pollId === poll.id) { hidePollResults(); }
+});
+
+socket.on('showPollResults', function (pollId) {
+  if (pollId === poll.id) { showPollResults(); }
+});
+
+function hidePollResults() {
+  resultsDiv.className = 'hidden';
+}
+
+function showPollResults() {
+  resultsDiv.className = 'visible';
+}
 
 function displayResults(poll) {
   var plotData = [

@@ -69,9 +69,13 @@ io.on('connection', function (socket) {
     } else if (channel === 'hidePoll') {
       var poll = app.locals.polls[msg.pollId];
       poll.isVisible = false;
+
+      io.sockets.emit('hidePollResults', poll.id);
     } else if (channel === 'showPoll') {
       var poll = app.locals.polls[msg.pollId];
       poll.isVisible = true;
+
+      io.sockets.emit('showPollResults', poll.id);
     }
   });
 
