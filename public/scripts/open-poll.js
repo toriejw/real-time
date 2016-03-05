@@ -3,6 +3,6 @@ var socket = io();
 var openPollButton = document.getElementById('open-poll');
 var pollStatusMsg = document.getElementById('poll-status-msg');
 
-closePollButton.addEventListener('click', function () {
+openPollButton.addEventListener('click', function () {
   socket.send('openPoll', { pollId: poll.id });
 });
