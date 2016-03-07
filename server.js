@@ -1,10 +1,8 @@
 const http = require('http');
 const express = require('express');
-const generateId = require('./lib/generate-id');
-const initializeVoteCount = require('./lib/initialize-vote-count.js');
 const countVotes = require('./lib/count-votes.js')
 const schedule = require('node-schedule');
-const poll = require('./lib/poll.js');
+const pollTracker = require('./lib/poll.js');
 
 const app = express();
 
@@ -14,8 +12,7 @@ app.set('view engine', 'jade');
 app.use(express.static('public'));
 
 app.locals.title = 'Crowdsource';
-// app.locals.polls = {};
-app.locals.polls = poll.initializePollDatabase();
+app.locals.polls = pollTracker.initializePollDatabase();
 
 app.get('/', (request, response) => {
   response.render('index');
@@ -47,21 +44,13 @@ io.on('connection', function (socket) {
 
   socket.on('message', function (channel, msg) {
     if (channel === 'pollCreated') {
-      var id = generateId();
-      var poll = msg;
-
-      poll.id = id;
-      poll.voteCount = initializeVoteCount(poll.responses);
-      poll.votes = {};
-      poll.isVisible = true;
-      poll.isOpen = true;
-
-      app.locals.polls[id] = poll;
+      var poll = pollTracker.initializePoll(msg);
+      app.locals.polls[poll.id] = poll;
 
       var baseUrl = socket.conn.request.headers.host;
 
-      socket.emit('pollSuccessfullyCreated', { pollUrl: baseUrl + '/poll/' + id,
-                                               adminUrl: baseUrl + '/admin/' + id} );
+      socket.emit('pollSuccessfullyCreated', { pollUrl: baseUrl + '/poll/' + poll.id,
+                                               adminUrl: baseUrl + '/admin/' + poll.id} );
     } else if (channel === 'voteCast') {
       var poll = app.locals.polls[msg.pollId];
 
