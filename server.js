@@ -4,6 +4,7 @@ const generateId = require('./lib/generate-id');
 const initializeVoteCount = require('./lib/initialize-vote-count.js');
 const countVotes = require('./lib/count-votes.js')
 const schedule = require('node-schedule');
+const poll = require('./lib/poll.js');
 
 const app = express();
 
@@ -13,7 +14,8 @@ app.set('view engine', 'jade');
 app.use(express.static('public'));
 
 app.locals.title = 'Crowdsource';
-app.locals.polls = {};
+// app.locals.polls = {};
+app.locals.polls = poll.initializePollDatabase();
 
 app.get('/', (request, response) => {
   response.render('index');
