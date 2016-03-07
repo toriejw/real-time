@@ -19,15 +19,11 @@ app.get('/', (request, response) => {
 });
 
 app.get('/poll/:id', (request, response) => {
-  var poll = app.locals.polls[request.params.id];
-
-  response.render('poll', { poll: poll });
+  response.render('poll', { poll: findPoll(request.params.id) });
 });
 
 app.get('/admin/:id', (request, response) => {
-  var poll = app.locals.polls[request.params.id];
-
-  response.render('admin', { poll: poll });
+  response.render('admin', { poll: findPoll(request.params.id) });
 });
 
 var port = process.env.PORT || 3000;
@@ -97,5 +93,9 @@ io.on('connection', function (socket) {
   });
 
 });
+
+function findPoll(pollId) {
+  return app.locals.polls[pollId];
+}
 
 module.exports = app;

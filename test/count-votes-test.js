@@ -2,6 +2,7 @@ const countVotes = require('../lib/count-votes.js');
 const assert = require('assert');
 
 describe ('countVotes', () => {
+  
   var votes = {'socket-id1': 'first',
                'socket-id2': 'first',
                'socket-id3': 'second',
