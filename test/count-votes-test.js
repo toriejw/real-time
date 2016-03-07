@@ -10,8 +10,8 @@ describe ('countVotes', () => {
   var responses = ['first', 'second', 'third'];
 
   it('counts the votes for a given list of choices', function () {
-    actualVoteCount = countVotes(votes, responses);
-    expectedVoteCount = { 'first': 3, 'second': 1, 'third': 0 };
+    var actualVoteCount = countVotes(votes, responses);
+    var expectedVoteCount = { 'first': 3, 'second': 1, 'third': 0 };
 
     assert.equal(actualVoteCount.first, expectedVoteCount.first);
     assert.equal(actualVoteCount.second, expectedVoteCount.second);
